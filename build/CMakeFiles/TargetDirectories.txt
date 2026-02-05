@@ -1,0 +1,4 @@
+/Users/lukas/Desktop/server/build/CMakeFiles/socket.dir
+/Users/lukas/Desktop/server/build/CMakeFiles/client.dir
+/Users/lukas/Desktop/server/build/CMakeFiles/edit_cache.dir
+/Users/lukas/Desktop/server/build/CMakeFiles/rebuild_cache.dir

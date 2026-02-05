@@ -1,0 +1,20 @@
+[
+{
+  "directory": "/Users/lukas/Desktop/server/build",
+  "command": "/usr/bin/c++ -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_CONTAINER_DYN_LINK -DBOOST_CONTAINER_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_JSON_DYN_LINK -DBOOST_JSON_NO_LIB -I/Users/lukas/Desktop/server/include -isystem /opt/homebrew/Cellar/openssl@3/3.6.0/include -isystem /opt/homebrew/include -std=gnu++20 -arch arm64 -o CMakeFiles/socket.dir/src/main.cpp.o -c /Users/lukas/Desktop/server/src/main.cpp",
+  "file": "/Users/lukas/Desktop/server/src/main.cpp",
+  "output": "CMakeFiles/socket.dir/src/main.cpp.o"
+},
+{
+  "directory": "/Users/lukas/Desktop/server/build",
+  "command": "/usr/bin/c++ -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_CONTAINER_DYN_LINK -DBOOST_CONTAINER_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_JSON_DYN_LINK -DBOOST_JSON_NO_LIB -I/Users/lukas/Desktop/server/include -isystem /opt/homebrew/Cellar/openssl@3/3.6.0/include -isystem /opt/homebrew/include -std=gnu++20 -arch arm64 -o CMakeFiles/socket.dir/src/foo.cpp.o -c /Users/lukas/Desktop/server/src/foo.cpp",
+  "file": "/Users/lukas/Desktop/server/src/foo.cpp",
+  "output": "CMakeFiles/socket.dir/src/foo.cpp.o"
+},
+{
+  "directory": "/Users/lukas/Desktop/server/build",
+  "command": "/usr/bin/c++ -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_CONTAINER_DYN_LINK -DBOOST_CONTAINER_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_JSON_DYN_LINK -DBOOST_JSON_NO_LIB -I/Users/lukas/Desktop/server/include -isystem /opt/homebrew/Cellar/openssl@3/3.6.0/include -isystem /opt/homebrew/include -std=gnu++20 -arch arm64 -o CMakeFiles/client.dir/src/client.cpp.o -c /Users/lukas/Desktop/server/src/client.cpp",
+  "file": "/Users/lukas/Desktop/server/src/client.cpp",
+  "output": "CMakeFiles/client.dir/src/client.cpp.o"
+}
+]

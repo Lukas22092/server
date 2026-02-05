@@ -1,0 +1,1 @@
+add_library(include STATIC foo.hpp client.hpp)
