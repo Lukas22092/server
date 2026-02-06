@@ -1,7 +1,10 @@
-#include "foo.hpp"
-
+#include "server.hpp"
+#include "game_data.hpp"
 
 int main() {
+    player_data data = player_data();
+    say_data(data);
+
 
     try {
         boost::asio::io_context io_context;

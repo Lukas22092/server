@@ -1,5 +1,5 @@
-#ifndef FOO_HPP
-#define FOO_HPP
+#ifndef server_HPP
+#define server_HPP
 #include <memory>
 #include <iostream>
 #include <boost/asio.hpp>
