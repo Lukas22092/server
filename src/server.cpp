@@ -26,10 +26,10 @@ void tcp_connection::start_reading() {
                 try {
                     self->user_id = std::stoi(request);
                     std::cout << "User authenticated with ID: " << self->user_id << "\n";
-                    self->send_to_user("ID Accepted. Welcome, Player " + request + "\n");
+                    //self->send_to_user("ID Accepted. Welcome, Player " + request + "\n");
                 } catch (...) {
                     std::cout << "Invalid ID received: " << request << "\n";
-                    self->send_to_user("Error: ID must be a number.\n");
+                    //self->send_to_user("Error: ID must be a number.\n");
                 }
             } else {
                 // Here is where your Relay Logic goes!
@@ -48,18 +48,24 @@ void tcp_connection::start_reading() {
 
 boost::asio::ip::tcp::socket& tcp_connection::socket(){return socket_;};
 
-void tcp_connection::send_to_user(const std::string& message) {
+void tcp_connection::send_to_user(const std::vector<player_data>& message) {
         boost::asio::async_write(socket_, boost::asio::buffer(message ),
             [self = shared_from_this()](const boost::system::error_code& error, size_t bytes_transferred) {
                 //self->start_reading();
             });
     }
 
+
+
 void tcp_connection::start() {
         socket_.set_option(boost::asio::ip::tcp::no_delay(true));
         std::cout << std::string_view("someone connected\n");
         std::string sClientIp = socket().remote_endpoint().address().to_string();
-        send_to_user("connected. you are user" + sClientIp);
+        player_data data = player_data();
+
+        //this sends a pointer! would crash for std string
+        send_to_user(std::vector<player_data>{data});
+        std::cout << "sent data to user\n";
         start_reading();
     }
 

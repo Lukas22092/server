@@ -4,6 +4,8 @@
 #include <iostream>
 #include <boost/asio.hpp>
 #include <set>
+#include <vector>
+#include "game_data.hpp"
 
 using boost::asio::ip::tcp;
 class tcp_connection;
@@ -28,7 +30,7 @@ class tcp_connection : public std::enable_shared_from_this<tcp_connection>
     void start_reading();
 
     ///send a message to a connected user
-    void send_to_user(const std::string& message) ;
+    void send_to_user(const std::vector<player_data>& message);
 
     //returns the socket object, used for using it in the tcp_server class.
     tcp::socket& socket();
