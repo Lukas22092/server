@@ -11,6 +11,7 @@ add_executable(socket
     src/main.cpp
     src/game_data.cpp
     src/server.cpp
+    src/client.cpp
 )
 
 

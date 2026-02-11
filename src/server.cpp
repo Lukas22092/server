@@ -48,8 +48,10 @@ void tcp_connection::start_reading() {
 
 boost::asio::ip::tcp::socket& tcp_connection::socket(){return socket_;};
 
-void tcp_connection::send_to_user(const std::vector<player_data>& message) {
-        boost::asio::async_write(socket_, boost::asio::buffer(message ),
+//might be possible that this wont work as a return right after calling -> message might be destroyed as the calling
+//function will be taken off the stack!
+void tcp_connection::send_to_user(const player_data& message) {
+        boost::asio::async_write(socket_, boost::asio::buffer(&message, sizeof(message)),
             [self = shared_from_this()](const boost::system::error_code& error, size_t bytes_transferred) {
                 //self->start_reading();
             });
@@ -64,7 +66,7 @@ void tcp_connection::start() {
         player_data data = player_data();
 
         //this sends a pointer! would crash for std string
-        send_to_user(std::vector<player_data>{data});
+        send_to_user(player_data{data});
         std::cout << "sent data to user\n";
         start_reading();
     }

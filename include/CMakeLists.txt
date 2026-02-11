@@ -1,1 +1,1 @@
-add_library(include STATIC server.hpp game_data.hpp)
+add_library(include STATIC server.hpp game_data.hpp client.hpp)
