@@ -11,10 +11,13 @@ add_executable(socket
     src/main.cpp
     src/game_data.cpp
     src/server.cpp
+)
+add_executable(client
     src/client.cpp
 )
 
-
+target_link_libraries(client PRIVATE Boost::boost Boost::system  Qt6::Widgets)
 target_link_libraries(socket PRIVATE Boost::boost Boost::system  Qt6::Widgets)
 
+target_include_directories(client PRIVATE include)
 target_include_directories(socket PRIVATE include)

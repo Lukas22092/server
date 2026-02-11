@@ -4,7 +4,7 @@ tcp_connection::tcp_connection(boost::asio::io_context& io_context) : socket_(io
 
 
 std::shared_ptr<tcp_connection> tcp_connection::create(boost::asio::io_context& io_context) {
-    return std::make_unique<tcp_connection>(io_context);
+    return std::make_shared<tcp_connection>(io_context);
     }
 
 void tcp_connection::start_reading() {
@@ -55,6 +55,7 @@ void tcp_connection::send_to_user(const player_data& message) {
             [self = shared_from_this()](const boost::system::error_code& error, size_t bytes_transferred) {
                 //self->start_reading();
             });
+        std::cout << "message : "<< message.position;
     }
 
 
@@ -68,7 +69,6 @@ void tcp_connection::start() {
         //this sends a pointer! would crash for std string
         send_to_user(player_data{data});
         std::cout << "sent data to user\n";
-        start_reading();
     }
 
 

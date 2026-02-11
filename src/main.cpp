@@ -1,6 +1,5 @@
 #include "server.hpp"
 #include "game_data.hpp"
-#include "client.hpp"
 
 
 int main() {
@@ -11,8 +10,7 @@ int main() {
         boost::asio::io_context io_context;
         tcp_server server(io_context);
         std::cout << "Server started runniddng" << std::endl;
-        Client Client(io_context);
-
+        
         io_context.run();
 
         std::cout << "finished running" << std::endl;
