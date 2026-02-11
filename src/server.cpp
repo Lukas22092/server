@@ -51,10 +51,10 @@ boost::asio::ip::tcp::socket& tcp_connection::socket(){return socket_;};
 //might be possible that this wont work as a return right after calling -> message might be destroyed as the calling
 //function will be taken off the stack!
 void tcp_connection::send_to_user(const player_data& message) {
-    
+        std::cout << "initializing write\n";
         boost::asio::async_write(socket_, boost::asio::buffer(&message, sizeof(message)),
             [self = shared_from_this(), message](const boost::system::error_code& error, size_t bytes_transferred) {
-                //self->start_reading();
+                self->start_reading();
             });
         std::cout << "message : "<< message.position;
     }
@@ -64,11 +64,11 @@ void tcp_connection::send_to_user(const player_data& message) {
 void tcp_connection::start() {
         socket_.set_option(boost::asio::ip::tcp::no_delay(true));
         std::cout << std::string_view("someone connected\n");
-        std::string sClientIp = socket().remote_endpoint().address().to_string();
+        
         player_data data = player_data();
-
+        std::cout << "created data struct\n";
         //this sends a pointer! would crash for std string
-        send_to_user(player_data{data});
+        send_to_user(data);
         std::cout << "sent data to user\n";
     }
 
