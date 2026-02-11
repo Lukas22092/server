@@ -21,15 +21,15 @@ void Client::connect(){
 
 void Client::listen_blocking(){
     boost::system::error_code ec;
+    std::cout << "starting reading\n";
     for(;;){
-            std::cout << "starting reading\n";
-            size_t len = boost::asio::read(socket, boost::asio::buffer(buf), ec);
-            std::cout << buf.size();
-
-            if (error == boost::asio::error::eof)
+            size_t len = socket.read_some(boost::asio::buffer(buf), ec);          
+              std::cout << buf.size();
+            if (ec == boost::asio::error::eof)
                 break; // Connection closed cleanly by peer.
-            else if (error)
-                throw boost::system::system_error(error); // Some other error.
+            else if (ec)if (ec == boost::asio::error::eof)
+
+                throw boost::system::system_error(ec); // Some other error.
 
 
         }

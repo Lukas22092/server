@@ -3,8 +3,6 @@
 
 
 int main() {
-    player_data data = player_data();
-
 
     try {
         boost::asio::io_context io_context;

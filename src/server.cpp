@@ -51,8 +51,9 @@ boost::asio::ip::tcp::socket& tcp_connection::socket(){return socket_;};
 //might be possible that this wont work as a return right after calling -> message might be destroyed as the calling
 //function will be taken off the stack!
 void tcp_connection::send_to_user(const player_data& message) {
+    
         boost::asio::async_write(socket_, boost::asio::buffer(&message, sizeof(message)),
-            [self = shared_from_this()](const boost::system::error_code& error, size_t bytes_transferred) {
+            [self = shared_from_this(), message](const boost::system::error_code& error, size_t bytes_transferred) {
                 //self->start_reading();
             });
         std::cout << "message : "<< message.position;

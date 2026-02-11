@@ -15,7 +15,6 @@ class Client
     tcp::resolver resolver;
     tcp::socket socket;
     std::vector<player_data> buf;
-    boost::system::error_code error;
 
 
     public:
