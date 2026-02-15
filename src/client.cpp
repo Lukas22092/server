@@ -18,23 +18,26 @@ void Client::connect(){
         return;
     }
 }
-
-void Client::listen_blocking(){
+void Client::listen_blocking() {
     boost::system::error_code ec;
-    std::cout << "starting reading\n";
-    for(;;){
-            size_t len = socket.read_some(boost::asio::buffer(buf), ec);          
-              std::cout << buf.size();
-            if (ec == boost::asio::error::eof)
-                break; // Connection closed cleanly by peer.
-            else if (ec)if (ec == boost::asio::error::eof)
+    
+    buf.resize(10); 
 
-                throw boost::system::system_error(ec); // Some other error.
+    for (;;) {
+        size_t len = socket.read_some(
+            boost::asio::buffer(buf, buf.size() * sizeof(player_data)), 
+            ec
+        );
+        if (ec) break;
+        size_t num_structs = len / sizeof(player_data);
 
+        for (size_t i = 0; i < num_structs; ++i) {
 
+            std::cout << "Received Player ID: " << static_cast<int32_t>(buf[i].player_ID) 
+                      << " Position: " << buf[i].position << "\n";
         }
+    }
 }
-
 
 int main() {
     try {

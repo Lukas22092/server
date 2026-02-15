@@ -32,11 +32,8 @@ void tcp_connection::start_reading() {
                     //self->send_to_user("Error: ID must be a number.\n");
                 }
             } else {
-                // Here is where your Relay Logic goes!
                 std::cout << "Message from " << self->user_id << ": " << request << "\n";
                 
-                // If this is a player, send to the game. 
-                // If this is the game, send to all players.
             }
 
             self->start_reading();
@@ -52,11 +49,15 @@ boost::asio::ip::tcp::socket& tcp_connection::socket(){return socket_;};
 //function will be taken off the stack!
 void tcp_connection::send_to_user(const player_data& message) {
         std::cout << "initializing write\n";
-        boost::asio::async_write(socket_, boost::asio::buffer(&message, sizeof(message)),
-            [self = shared_from_this(), message](const boost::system::error_code& error, size_t bytes_transferred) {
+        auto saved_data = std::make_shared<player_data>(message);
+
+        boost::asio::async_write(socket_, boost::asio::buffer(saved_data.get(), sizeof(message)),
+            [self = shared_from_this(), saved_data](const boost::system::error_code& error, size_t bytes_transferred) {
                 self->start_reading();
             });
-        std::cout << "message : "<< message.position;
+        std::cout << "sent position : "<< message.position << "\n";
+        std::cout << "sent player_ID : "<< static_cast<int32_t>(message.player_ID) << "\n";
+
     }
 
 
@@ -66,10 +67,7 @@ void tcp_connection::start() {
         std::cout << std::string_view("someone connected\n");
         
         player_data data = player_data();
-        std::cout << "created data struct\n";
-        //this sends a pointer! would crash for std string
         send_to_user(data);
-        std::cout << "sent data to user\n";
     }
 
 
