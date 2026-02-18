@@ -47,6 +47,7 @@ boost::asio::ip::tcp::socket& tcp_connection::socket(){return socket_;};
 
 //might be possible that this wont work as a return right after calling -> message might be destroyed as the calling
 //function will be taken off the stack!
+
 void tcp_connection::send_to_user(const player_data& message) {
         std::cout << "initializing write\n";
         auto saved_data = std::make_shared<player_data>(message);
