@@ -10,9 +10,6 @@
 using boost::asio::ip::tcp;
 class tcp_connection;
 
-class Tron{
-    std::set<std::shared_ptr<tcp_connection>> connections_; 
-};
 
 class tcp_connection : public std::enable_shared_from_this<tcp_connection>
 {
@@ -22,16 +19,34 @@ class tcp_connection : public std::enable_shared_from_this<tcp_connection>
 
     ///constructor sets the socket
     tcp_connection(boost::asio::io_context& io_context);
-
+   
     ///starts the tcp server
-    void start();
+    void  start();    
 
     ///wait for users to send a message
     void start_reading();
 
-    ///send a message to a connected user
-    void send_to_user(const player_data& message);
+    template<typename T, typename SendableData>
+    void send_to_user(const T& message, const SendableData& to_send) {
+            std::cout << "initializing write\n";
+            auto data_to_send = std::make_shared<player_data>(message);
+            auto data_type = std::make_shared<SendableData>(to_send);
 
+            //first send the type we want to send so the user knows how to unpack it.
+            boost::asio::async_write(socket_, boost::asio::buffer(data_type.get(), sizeof(to_send)),
+                    [self = shared_from_this(), to_send](const boost::system::error_code& error, size_t bytes_transferred) {
+                        self->start_reading();
+                    });
+            //now, send the data
+            /*
+            boost::asio::async_write(socket_, boost::asio::buffer(data_to_send.get(), sizeof(message)),
+                [self = shared_from_this(), data_to_send](const boost::system::error_code& error, size_t bytes_transferred) {
+                    self->start_reading();
+                });
+            std::cout << "sent position : "<< message.position << "\n";
+            std::cout << "sent player_ID : "<< static_cast<int32_t>(message.player_ID) << "\n";
+              */
+        }
     //returns the socket object, used for using it in the tcp_server class.
     tcp::socket& socket();
 

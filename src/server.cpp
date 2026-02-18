@@ -45,21 +45,6 @@ void tcp_connection::start_reading() {
 
 boost::asio::ip::tcp::socket& tcp_connection::socket(){return socket_;};
 
-//might be possible that this wont work as a return right after calling -> message might be destroyed as the calling
-//function will be taken off the stack!
-
-void tcp_connection::send_to_user(const player_data& message) {
-        std::cout << "initializing write\n";
-        auto saved_data = std::make_shared<player_data>(message);
-
-        boost::asio::async_write(socket_, boost::asio::buffer(saved_data.get(), sizeof(message)),
-            [self = shared_from_this(), saved_data](const boost::system::error_code& error, size_t bytes_transferred) {
-                self->start_reading();
-            });
-        std::cout << "sent position : "<< message.position << "\n";
-        std::cout << "sent player_ID : "<< static_cast<int32_t>(message.player_ID) << "\n";
-
-    }
 
 
 
@@ -68,7 +53,8 @@ void tcp_connection::start() {
         std::cout << std::string_view("someone connected\n");
         
         player_data data = player_data();
-        send_to_user(data);
+        SendableData data_type = SendableData::Color;
+        send_to_user(data, data_type);
     }
 
 

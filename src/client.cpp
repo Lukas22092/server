@@ -25,16 +25,18 @@ void Client::listen_blocking() {
 
     for (;;) {
         size_t len = socket.read_some(
-            boost::asio::buffer(buf, buf.size() * sizeof(player_data)), 
+            boost::asio::buffer(buf, buf.size() * sizeof(SendableData)), 
             ec
         );
         if (ec) break;
         size_t num_structs = len / sizeof(player_data);
 
-        for (size_t i = 0; i < num_structs; ++i) {
+        std::cout << buf[0] << "\n";
 
+        for (size_t i = 0; i < num_structs; ++i) {
+            /*
             std::cout << "Received Player ID: " << static_cast<int32_t>(buf[i].player_ID) 
-                      << " Position: " << buf[i].position << "\n";
+                      << " Position: " << buf[i].position << "\n";*/
         }
     }
 }

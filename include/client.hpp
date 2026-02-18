@@ -9,12 +9,13 @@
 using boost::asio::ip::tcp;
 
 
+
 class Client
 {
     private:
     tcp::resolver resolver;
     tcp::socket socket;
-    std::vector<player_data> buf;
+    std::vector<SendableData> buf;
 
 
     public:
